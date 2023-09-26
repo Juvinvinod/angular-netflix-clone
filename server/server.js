@@ -1,7 +1,10 @@
 const express = require('express');
+const jwt = require ('jsonwebtoken')
 const mongoose = require('mongoose');
+const cors = require ('cors');
 
 const app = express();
+app.use(cors());
 const routes = require('./routes')
 require('dotenv').config({ path: '.env' });
 

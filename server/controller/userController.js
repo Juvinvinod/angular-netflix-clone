@@ -1,4 +1,6 @@
 const mongoose = require ('mongoose');
+const jwt = require ('jsonwebtoken')
+require('dotenv').config({ path: '.env' });
 
 const User = require ('../model/User.js');
 
@@ -7,7 +9,9 @@ const registerUser = async (req,res) =>{
         userData = req.body
         let user = new User(userData);
         await user.save();
-         res.status(200).send(user);   
+        let payload = {subject: user._id};
+        let token = jwt.sign(payload,process.env.JWTSECRET)
+         res.status(200).send({token});   
     } catch (error) {
         console.log(error);
     }
@@ -18,7 +22,9 @@ const login = async(req,res) =>{
         let userData = req.body;
         const document = await User.findOne({email: userData.email});
         if (document){
-            res.status(200).send(document);
+            let payload = { subject: document._id };
+            let token = jwt.sign(payload,process.env.JWTSECRET)
+            res.status(200).send({token});
         }else{
             res.status(401).send("Invalid user/password");
         }
