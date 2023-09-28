@@ -1,19 +1,33 @@
-require('dotenv').config({ path: '.env' });
+require('dotenv').config({ path: '../.env' });
+const jwt = require ('jsonwebtoken')
 
 const verifyToken = (req,res,next) => {
-    if(!req.headers.authorization){
+    const bearerHeader = req.headers['authorization']
+    if(!bearerHeader){
         return res.status(401).send('Unauthorized request')
     }
-    let token = req.headers.authorization.split(' ')[1]
+    let token = bearerHeader.split(' ')[1]
     if(token === null){
         return res.status(401).send('Unauthorized request')
     }
-    let payload = jwt.verify(token,process.env.JWTSECRET)
-    if(!payload){
-        return res.status(401).send('Unauthorized request')
+    
+    try {
+        jwt.verify(token, process.env.JWTSECRET,(err,user)=>{
+            if(err) {
+                return res.sendStatus(403)
+            }
+            req.userId = user.subject
+            next ()
+        });
+        
+        
+
+    } catch (err) {
+        return res.status (401) .send ('Unauthorized request')
+
     }
-    req.userId = payload.subject
-    next()
+
+
 }
 
 module.exports = {

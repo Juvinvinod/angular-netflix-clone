@@ -33,7 +33,14 @@ const login = async(req,res) =>{
     }
 }
 
+const home = async(req,res)=>{
+    const id = req.userId;
+    const document = await User.find({_id:id});
+    return res.status(200).send(document);
+}
+
 module.exports ={
     registerUser,
     login,
+    home,
 }
