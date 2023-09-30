@@ -14,6 +14,12 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { UserlistingComponent } from './userlisting/userlisting.component';
 import { TokenInterceptor } from './interceptor/token.interceptor';
+import { StoreModule } from '@ngrx/store';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { EffectsModule } from '@ngrx/effects';
+import { UserReducer } from './store/user.reducer';
+import { AppEffects } from './store/common/app.effects';
+import { UserEffect } from './store/user.effects';
  
 @NgModule({
   declarations: [
@@ -30,7 +36,10 @@ import { TokenInterceptor } from './interceptor/token.interceptor';
     MaterialModule,
     ReactiveFormsModule,
     HttpClientModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    StoreModule.forRoot({user:UserReducer}),
+    StoreRouterConnectingModule.forRoot(),
+    EffectsModule.forRoot([AppEffects,UserEffect])
   ],
   providers: [
     {

@@ -41,4 +41,6 @@ export class AuthService {
   getHome(): Observable<any>{
     return this.http.get(this.apiURL);
   }
+
+  
 }
