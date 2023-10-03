@@ -12,6 +12,8 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit{
   name:string = '';
   constructor(private service:AuthService, private router:Router){}
+
+ 
   ngOnInit(): void {
     this.service.getHome().subscribe( 
       (res: any[]) => {

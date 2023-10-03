@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -20,6 +20,10 @@ import { EffectsModule } from '@ngrx/effects';
 import { UserReducer } from './store/user.reducer';
 import { AppEffects } from './store/common/app.effects';
 import { UserEffect } from './store/user.effects';
+import { ProfileComponent } from './profile/profile.component';
+import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
+import { spinnerReducer } from './store/shared/shared.reducer';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
  
 @NgModule({
   declarations: [
@@ -27,7 +31,9 @@ import { UserEffect } from './store/user.effects';
     HomeComponent,
     LoginComponent,
     RegisterComponent,
-    UserlistingComponent
+    UserlistingComponent,
+    ProfileComponent,
+    LoadingSpinnerComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,9 +43,18 @@ import { UserEffect } from './store/user.effects';
     ReactiveFormsModule,
     HttpClientModule,
     ToastrModule.forRoot(),
-    StoreModule.forRoot({user:UserReducer}),
+    StoreModule.forRoot({user:UserReducer,loader:spinnerReducer}),
     StoreRouterConnectingModule.forRoot(),
-    EffectsModule.forRoot([AppEffects,UserEffect])
+    EffectsModule.forRoot([AppEffects,UserEffect]),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+      logOnly: !isDevMode(), // Restrict extension to log-only mode
+      autoPause: true, // Pauses recording actions and state changes when the extension window is not open
+      trace: false, //  If set to true, will include stack trace for every dispatched action, so you can see it in trace tab jumping directly to that part of code
+      traceLimit: 75, // maximum stack trace frames to be stored (in case trace option was provided as true)
+      connectOutsideZone: true // If set to true, the connection is established outside the Angular zone for better performance
+    }),
   ],
   providers: [
     {

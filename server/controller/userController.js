@@ -39,8 +39,25 @@ const home = async(req,res)=>{
     return res.status(200).send(document);
 }
 
+const uploadImage = async (req, res)=>{
+    try {
+
+        const {id} = req.body
+
+        const imageFile = req.file.filename
+
+        await userModel.findByIdAndUpdate(id,{profileImage: imageFile})
+
+        res.sendStatus(200);
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 module.exports ={
     registerUser,
     login,
     home,
+    uploadImage,
 }

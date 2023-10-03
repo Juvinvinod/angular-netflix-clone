@@ -18,6 +18,12 @@ const userSchema =  new Schema({
     role:{
         type:String,
         default:"user"
+    },
+    profileImage:{
+        profileImage: {
+            type: String,
+            default: "person.jpeg"
+        }
     }
 })
 

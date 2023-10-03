@@ -9,7 +9,9 @@ import {MatPaginatorModule} from '@angular/material/paginator'
 import {MatSortModule} from '@angular/material/sort'
 import {MatDialogModule} from '@angular/material/dialog'
 import { MatButtonModule } from "@angular/material/button";
+import {MatIconModule} from '@angular/material/icon';
 import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -25,6 +27,8 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
         MatDialogModule,
         MatButtonModule,
         MatSnackBarModule,
+        MatIconModule,
+        MatProgressSpinnerModule,
     ]
 })
 

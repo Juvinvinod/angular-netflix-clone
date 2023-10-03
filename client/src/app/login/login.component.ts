@@ -7,6 +7,7 @@ import { Usercred } from '../store/model/User.model';
 import { beginLogin } from '../store/user.action';
 import { Store } from '@ngrx/store';
 import { showAlert } from '../store/common/app.action';
+import { setLoadingSpinner } from '../store/shared/shared.action';
 
 @Component({
   selector: 'app-login',
@@ -29,23 +30,10 @@ export class LoginComponent {
         email:this.loginform.value.email as string,
         password:this.loginform.value.password as string
       }
+      this.store.dispatch(setLoadingSpinner({status:true}));
       this.store.dispatch(beginLogin({
         userCred:obj
       }))
-      // this.service.verifyLogin(this.loginform.value).subscribe(
-      //   {
-      //     next:(res:any)=>{
-      //       localStorage.setItem('token', res.token);
-      //     },
-      //     complete: () => {
-      //       this.toastr.success('Welcome home'),
-      //         this.router.navigate([''])
-      //     },
-      //     error:() =>{
-      //       this.toastr.error('User email/password is incorrect');
-      //     }
-      //   })
-
     } else {
       this.store.dispatch(showAlert({message:'Form details invalid',resultType:'fail'}))
     }

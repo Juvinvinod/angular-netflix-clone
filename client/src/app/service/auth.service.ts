@@ -1,5 +1,6 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -7,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class AuthService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private router:Router) { }
   apiURL = 'http://localhost:3000'
 
   getAll() {
@@ -42,5 +43,8 @@ export class AuthService {
     return this.http.get(this.apiURL);
   }
 
-  
+  logoutUser(){
+    localStorage.removeItem('token')
+    this.router.navigate(['login']);
+  }
 }
