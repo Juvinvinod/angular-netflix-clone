@@ -106,6 +106,10 @@
             <a class="nav-link active" *ngIf="service.loggedIn()" routerLink="profile"
               routerLinkActive="active">Profile</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link active" *ngIf="service.checkAdmin()" routerLink="admin"
+              routerLinkActive="active">Dashboard</a>
+          </li>
         </ul>
         <a *ngIf="service.loggedIn()" (click)="service.logoutUser()" style="cursor:pointer">Logout</a>
       </div>

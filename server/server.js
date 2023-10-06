@@ -3,10 +3,13 @@ const jwt = require ('jsonwebtoken')
 const mongoose = require('mongoose');
 const cors = require ('cors');
 
+const routes = require('./routes/routes')
+const adminRoutes = require("./routes/adminRoutes")
+require('dotenv').config({ path: '.env' });
+
+
 const app = express();
 app.use(cors());
-const routes = require('./routes')
-require('dotenv').config({ path: '.env' });
 
 
 mongoose.connect(process.env.DATABASE).then(()=>{
@@ -24,6 +27,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/', routes)
+app.use("/admin", adminRoutes);
 
 app.listen(process.env.PORT, function () {
     console.log('Server running on PORT ' + process.env.PORT);

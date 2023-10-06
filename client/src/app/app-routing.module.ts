@@ -6,13 +6,16 @@ import { RegisterComponent } from './register/register.component';
 import { UserlistingComponent } from './userlisting/userlisting.component';
 import { authGuard } from './guard/auth.guard';
 import { ProfileComponent } from './profile/profile.component';
+import { CreateComponent } from './userlisting/create/create.component';
+import { roleGuard } from './guard/role.guard';
 
 const routes: Routes = [
   {path:'',component:HomeComponent,canActivate:[authGuard]},
   {path:'register',component:RegisterComponent},
   {path:'login',component:LoginComponent},
-  {path:'user',component:UserlistingComponent},
-  {path:'profile',component:ProfileComponent,canActivate:[authGuard]}
+  {path:'profile',component:ProfileComponent,canActivate:[authGuard]},
+  {path:'admin',component:UserlistingComponent,canActivate:[roleGuard,authGuard]},
+  {path:'admin/edit/:id',component:CreateComponent,canActivate:[roleGuard,authGuard]}
 ];
 
 @NgModule({

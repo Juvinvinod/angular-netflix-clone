@@ -1,6 +1,6 @@
-import { createEntityAdapter } from '@ngrx/entity'
-import {UserModel, Users} from './model/User.model'
+// import { createEntityAdapter } from '@ngrx/entity'
+// import {UserModel, Users} from '../model/User.model'
 
-export const UserAdapter = createEntityAdapter<Users>();
+// export const UserAdapter = createEntityAdapter<Users>();
 
-export const userState:UserModel = UserAdapter.getInitialState();
+// export const userState:UserModel = UserAdapter.getInitialState();

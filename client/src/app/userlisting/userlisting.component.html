@@ -1,1 +1,51 @@
-<p>userlisting works!</p>
+<div class="row">
+
+    <table class="table table-bordered table-light">
+        <thead>
+            <tr>
+                <th scope="col">
+                    Name
+                </th>
+                <th scope="col">
+                    Email
+                </th>
+                <th scope="col">
+                    Profile photo
+                </th>
+
+                <th scope="col">
+                    Actions
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of userArray">
+                <td scope="row">
+                    {{item.name}}
+                </td>
+
+                <td scope="row">
+                    {{item.email}}
+                </td>
+                <td *ngIf="item.profileImage !== 'person.jpg'">
+                    image uploaded
+                </td>
+                <td *ngIf="item.profileImage == 'person.jpg'">
+                    image not uploaded
+                </td>
+                <td scope="row">
+                    <button mat-icon-button color="primary" aria-label="Example icon button with a heart icon"
+                        (click)="edit(item._id)">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <button mat-icon-button color="warn" aria-label="Example icon button with a heart icon"
+                        (click)="delete(item._id)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
